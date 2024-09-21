@@ -7,9 +7,17 @@ import { UsersTypesModule } from './modules/users_types/users_types.module';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { DatabaseModule } from './database/database.module';
+
 @Module({
-  imports: [ProductsModule, OrdersModule, UsersModule, RolesModule, UsersTypesModule, DatabaseModule],
-  controllers: [AppController],
+  imports: [
+    ProductsModule, 
+    OrdersModule, 
+    UsersModule, 
+    RolesModule, 
+    UsersTypesModule, 
+    DatabaseModule
+  ],
+  controllers: [AppController],//controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

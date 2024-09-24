@@ -1,26 +1,47 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Order } from './entities/order.entity';
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    @InjectRepository(Order)
+    private ordersRepository: Repository<Order>,
+  ) { }
+
+  // Crear un nuevo pedido 
+  create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const order = this.ordersRepository.create(createOrderDto);
+    return this.ordersRepository.save(order);
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  // Obtener todos los pedido
+  findAll(): Promise<Order[]> {
+    return this.ordersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  // Obtener un pedidp por su ID
+  async findOne(id: number): Promise<Order> {
+    const order = await this.ordersRepository.findOneBy({ id });
+    if (!order) {
+      throw new NotFoundException(`Pedido con ID ${id} no encontrado`);
+    }
+    return order;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  // Actualizar un pedido por su ID
+  async update(id: number, UpdateOrderDto: UpdateOrderDto): Promise<Order> {
+    const order = await this.findOne(id);
+    Object.assign(order, UpdateOrderDto); // Asigna los nuevos valores al pedido existente
+    return this.ordersRepository.save(order);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  // Eliminar un pedido por su ID
+  async remove(id: number): Promise<void> {
+    const order = await this.findOne(id); // Verifica si el pedido existe
+    await this.ordersRepository.remove(order);
   }
 }

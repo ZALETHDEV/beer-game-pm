@@ -1,24 +1,29 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from './modules/products/products.module';
-import { OrdersModule } from './modules/orders/orders.module';
-import { UsersTypesModule } from './modules/users_types/users_types.module';
-import { UsersModule } from './modules/users/users.module';
-import { Order } from './modules/orders/entities/order.entity';
-import { Product } from './modules/products/entities/product.entity';
-import { User } from './modules/users/entities/user.entity';
-import { UserType } from './modules/users_types/entities/users_type.entity';
+import { Category } from './modules/factory/category/entities/category.entity';
+import { Product } from './modules/factory/product/entities/product.entity';
+import { Customer } from './modules/factory/customer/entities/customer.entity';
+import { Sale } from './modules/factory/sale/entities/sale.entity';
+import { SaleProduct } from './modules/factory/sale-product/entities/sale-product.entity';
+import { SupplierOrder } from './modules/factory/supplier-order/entities/supplier-order.entity';
+import { CategoryModule } from './modules/factory/category/category.module';
+import { CustomerModule } from './modules/factory/customer/customer.module';
+import { ProductModule } from './modules/factory/product/product.module';
+import { SaleModule } from './modules/factory/sale/sale.module';
+import { SaleProductModule } from './modules/factory/sale-product/sale-product.module';
+import { SupplierOrderModule } from './modules/factory/supplier-order/supplier-order.module';
+
 
 @Module({
-  imports: [    
+  imports: [
     TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    username: 'root',
-    password: '',
-    database: 'beergamepm',
-    entities: [Order,Product,User,UserType],
-    synchronize: false,
-  }), ProductsModule, OrdersModule, UsersModule, UsersTypesModule],
+      type: 'mysql',
+      host: 'localhost',
+      username: 'root',
+      password: '',
+      database: 'beergamepm',
+      entities: [Category, Product, Customer, Sale, SaleProduct, SupplierOrder],
+      synchronize: false,
+    }), CategoryModule, CustomerModule, ProductModule, SaleModule, SaleProductModule, SupplierOrderModule],
 })
-export class AppModule {}
+export class AppModule { }

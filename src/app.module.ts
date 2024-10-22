@@ -17,11 +17,11 @@ import { SupplierOrderModule } from './modules/factory/supplier-order/supplier-o
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'sql10.freesqldatabase.com',
-      username: 'sql10739925',
-      password: 'ylRIc7V4lv',
-      database: 'sql10739925',
+      type: 'mssql',
+      host: 'serverbeergame.database.windows.net',
+      username: 'admin98',
+      password: 'Zal981117',
+      database: 'BeerGamePm',
       entities: [Category, Product, Customer, Sale, SaleProduct, SupplierOrder],
       synchronize: false,
     }), CategoryModule, CustomerModule, ProductModule, SaleModule, SaleProductModule, SupplierOrderModule],

@@ -8,14 +8,12 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ example: 'Electronics', description: 'The name of the category' })
+  @ApiProperty({ example: 'Box', description: 'The name of the category' })
   @Column({ length: 100 })
   name: string;
 
-  @ApiProperty({ example: 'Devices', description: 'The type of the category' })
+  @ApiProperty({ example: 'Box', description: 'The type of the category' })
   @Column({ length: 100 })
   type: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
 }

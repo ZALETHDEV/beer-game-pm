@@ -24,6 +24,4 @@ export class Customer {
   @Column({ length: 15 })
   phone: string;
 
-  @OneToMany(() => Sale, (sale) => sale.customer)
-  sales: Sale[];
 }

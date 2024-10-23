@@ -20,6 +20,4 @@ export class Product {
   @Column('text')
   description: string;
 
-  @ManyToOne(() => Category, (category) => category.products)
-  category: Category;
 }
